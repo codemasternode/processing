@@ -4,27 +4,32 @@ version: "3.7"
 services:
   server:
     container_name: ${APP_NAME}-server
-    env_file: .env
     build:
       context: ./server
       dockerfile: Dockerfile
       args:
         - NODE_IMAGE_VERSION=${NODE_IMAGE_VERSION}
-        - NODE_PORT=${NODE_PORT}
-        - NODE_PORT_INSPECTOR=${NODE_PORT_INSPECTOR}
+    ports:
+      - "${NODE_PORT_OUTSIDE}:${NODE_PORT_INSIDE}"
+    env_file:
+      - .env
+    volumes:
+      - ./server:/app
+    links:
+      - postgres
+    command: ["npm", "start"]
     depends_on:
       - postgres
-    ports:
-      - "${NODE_PORT}:${NODE_PORT}"
-      - "${NODE_PORT_INSPECTOR}:${NODE_PORT_INSPECTOR}"
-    volumes: 
-      - ./server:/home/app/
-      - /home/app/node_modules
   postgres:
     container_name: ${APP_NAME}-database
     image: postgres:${POSTGRES_IMAGE_VERSION}
+    ports:
+      - "${POSTGRES_PORT_OUTSIDE}:${POSTGRES_PORT_INSIDE}"
     environment:
       POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
       POSTGRES_USER: ${POSTGRES_USER}
       POSTGRES_DB: ${POSTGRES_DB}
-
+    volumes:
+      - database-data:/var/lib/postgresql/data
+volumes:
+  database-data: {}

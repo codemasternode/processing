@@ -1,14 +1,16 @@
-import dotenv from 'dotenv';
-
-dotenv.config();
+import "dotenv/config";
 
 export default {
-    postgres: {
-        db: process.env.POSTGRES_USER,
-        user: process.env.POSTGRES_USER,
-        password: process.env.POSTGRES_PASSWORD,
+    app: {
+        env: process.env.APP_ENV
     },
     node: {
-        port: process.env.NODE_PORT,
+        PORT: process.env.NODE_PORT_INSIDE
     },
-};
+    postgres: {
+        user: process.env.POSTGRES_USER,
+        password: process.env.POSTGRES_PASSWORD,
+        database: process.env.POSTGRES_DB,
+        port: process.env.POSTGRES_PORT_INSIDE
+    }
+}
