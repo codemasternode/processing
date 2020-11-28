@@ -6,7 +6,7 @@ services:
     container_name: ${APP_NAME}-server
     env_file: .env
     build:
-      context: ./backend
+      context: ./server
       dockerfile: Dockerfile
       args:
         - NODE_IMAGE_VERSION=${NODE_IMAGE_VERSION}
@@ -17,6 +17,9 @@ services:
     ports:
       - "${NODE_PORT}:${NODE_PORT}"
       - "${NODE_PORT_INSPECTOR}:${NODE_PORT_INSPECTOR}"
+    volumes: 
+      - ./server:/home/app/
+      - /home/app/node_modules
   postgres:
     container_name: ${APP_NAME}-database
     image: postgres:${POSTGRES_IMAGE_VERSION}

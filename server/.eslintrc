@@ -19,10 +19,18 @@
         "@typescript-eslint"
     ],
     "rules": {
-        "prettier/prettier": "error",
+        "prettier/prettier": [
+            1,
+            {
+                "semi": false,
+                "singleQuote": true,
+                "tabWidth": 4,
+            },
+        ],
         "import/prefer-default-export": "off",
         "@typescript-eslint/ban-ts-comment": "off",
-        "no-console": 2
+        "no-console": 1,
+        "semi": "off"
     },
     "parser": "@typescript-eslint/parser"
 }
