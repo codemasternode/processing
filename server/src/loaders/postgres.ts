@@ -1,31 +1,26 @@
-import { Sequelize } from 'sequelize'
+import { Pool } from 'pg'
 import config from '../config'
+import fs from 'fs'
+import path from 'path'
 
 const { postgres: { database, username, password, port } } = config
 
-export default async (): Promise<Sequelize> => {
+export default async (): Promise<Pool> => {
     if (!database || !username || !password || !port) {
         throw new Error(`Missing postgres enviroment variables`)
     }
-    const sequelize = new Sequelize({
-        dialect: 'postgres',
-        port: Number(port),
-        pool: {
-            max: 5,
-            min: 0,
-            idle: 10000
-        },
+    const pool = new Pool({
+        user: username,
         host: 'postgres',
-        username,
+        database,
         password,
-        database
+        port: Number(port)
     });
 
-    try {
-        await sequelize.authenticate()
-    } catch (err) {
-        throw err
-    }
+    const projectSQL = fs.readFileSync(path.join(__dirname, "../model/project.sql"))
+    const endpointSQL = fs.readFileSync(path.join(__dirname, "../model/endoint.sql"))
 
-    return sequelize
+
+
+    return pool
 }
