@@ -1,11 +1,15 @@
-ARG NODE_IMAGE_VERSION
+FROM node:14.15.1-alpine
 
-FROM node:$NODE_IMAGE_VERSION
+RUN mkdir -p /usr/src/app
 
-WORKDIR /app
+WORKDIR /usr/src/app
 
-COPY package.json /app
+COPY package*.json ./
+
+RUN npm install
+
 COPY . .
 
-RUN node -v
-RUN npm install
+EXPOSE 8000
+
+CMD ["npm", "start"]

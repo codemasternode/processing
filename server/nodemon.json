@@ -1,8 +1,9 @@
 {
     "watch": [
-        "src"
+        "/usr/src/app"
     ],
     "ext": "ts",
     "ignore": [],
-    "exec": "ts-node src/index.ts"
+    "exec": "ts-node src/index.ts",
+    "legacyWatch": true
 }
