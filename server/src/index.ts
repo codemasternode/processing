@@ -1,13 +1,12 @@
-import loaders from './loaders'
+import loader from './loaders'
+import config from './config'
 
-loaders().then((app) => {
-    app.listen(3000, () => {
-        console.log(`Server is listening on port ${3000}`)
-        return null
-    });
-    console.log("XD 2")
+const { node: { PORT } } = config
+
+loader().then((app) => {
+
+    app.listen(PORT, () => {
+        console.log(`Server is running on port ${PORT}`)
+        console.log("Application is fully loaded")
+    })
 })
-
-
-
-

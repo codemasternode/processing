@@ -3,15 +3,16 @@
 version: "3.7"
 services:
   server:
-    container_name: processing-server
+    env_file:
+      - .env
     restart: always
     build:
       context: ./server
-      dockerfile: Dockerfile
+      dockerfile: Dockerfile.production
+      args:
+        - NODE_PORT=${NODE_PORT}
     ports:
-      - "8080:8000"
-    env_file:
-      - .env
+      - 9000:${NODE_PORT}
     volumes:
       - ./server:/usr/src/app
       - /usr/src/app/node_modules
@@ -21,9 +22,6 @@ services:
       - mongo
     command: npm start
   mongo:
-    container_name: processing-database
     image: mongo:4.4.2
     ports:
-      - "27018:27017"
-    volumes: 
-      - ./data:/data/db
+      - 27018:27017

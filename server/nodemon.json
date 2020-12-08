@@ -1,6 +1,6 @@
 {
     "watch": [
-        "/usr/src/app"
+        "src"
     ],
     "ext": "ts",
     "ignore": [],

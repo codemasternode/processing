@@ -1,20 +1,19 @@
 import "dotenv/config";
 
-const config = {
+export default {
     app: {
-        env: process.env.APP_ENV || 'development'
+        env: process.env.NODE_ENV || 'development'
     },
     node: {
-        PORT: process.env.NODE_PORT_INSIDE || "3000",
-        hostname: process.env.NODE_HOSTNAME
+        PORT: process.env.NODE_PORT || "3000",
+        genSalt: Number(process.env.GEN_SALT),
+        swapiApiURL: process.env.SWAPI_API_URL,
+        privateJWTKey: process.env.PRIVATE_JWT_KEY || "",
+        jwtAlgorithm: process.env.JWT_ALGORITHM || 'RS256',
+        jwtExpire: Number(process.env.JWT_EXPIRE_MS)
     },
-    postgres: {
-        username: process.env.POSTGRES_USER,
-        password: process.env.POSTGRES_PASSWORD,
-        database: process.env.POSTGRES_DB,
-        port: process.env.POSTGRES_PORT_INSIDE,
-        hostname: process.env.POSTGRES_HOSTNAME
+    mongo: {
+        db: process.env.MONGO_DB,
+        port: process.env.MONGO_PORT
     }
 }
-
-export default config
