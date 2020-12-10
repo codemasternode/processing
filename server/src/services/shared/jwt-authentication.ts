@@ -1,5 +1,5 @@
 import { sign, Algorithm } from 'jsonwebtoken'
-import config from '../config'
+import config from '../../config'
 
 export class JWTAuthentication {
     static async createJWT(payload: object): Promise<string> {

@@ -20,7 +20,12 @@ const userSchema: Schema = new Schema({
         type: String,
         required: true
     }
-})
+},
+    {
+        strict: true,
+        timestamps: true
+    }
+)
 
 userSchema.pre<IUser>("save", async function (next) {
 
@@ -51,4 +56,5 @@ userSchema.methods.comparePassword = async function (candidatePassword: string):
 
 const UserModel = model<IUserModel>("user", userSchema)
 
+export { userSchema }
 export default UserModel

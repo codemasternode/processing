@@ -1,9 +1,7 @@
 import { Error } from 'mongoose'
-import { UserModel } from '../models'
-import { InternalError, IUser, IUserResponse, MongoDBValidationError, AuthenticationError, NotFoundError } from '../types'
-import { IUserRequest } from '../types/user/iuser-request'
-import { JWTAuthentication } from '.'
-import { Cache } from './index'
+import { UserModel } from '../../models'
+import { IUserRequest, InternalError, IUser, IUserResponse, MongoDBValidationError, AuthenticationError, NotFoundError } from '../../types'
+import { JWTAuthentication, Cache } from '..'
 
 export class UserService {
 

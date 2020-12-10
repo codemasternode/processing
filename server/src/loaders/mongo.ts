@@ -8,7 +8,11 @@ export default async (): Promise<Mongoose> => {
         throw new Error(`Missing mongodb enviroment variables`)
     }
     try {
-        const connection = await mongoose.connect(`mongodb://mongo:${port}/${db}`, { useNewUrlParser: true, useUnifiedTopology: true })
+        const connection = await mongoose.connect(`mongodb://mongo:${port}/${db}`, {
+            useNewUrlParser: true,
+            useUnifiedTopology: true,
+            useCreateIndex: true
+        })
         console.log(`Connected to MongoDB database ${db} running on port ${port}`)
         return connection
     } catch (err) {
