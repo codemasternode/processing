@@ -1,5 +1,4 @@
 import { Document } from 'mongoose'
-import { ICompanyUser, ICompanyProject } from '.'
 
 interface ICompany extends Document {
     companyName: string;
@@ -9,8 +8,8 @@ interface ICompany extends Document {
     name: string;
     lastname: string;
     logo: string;
-    users: ICompanyUser[],
-    projects: ICompanyProject[],
+    users: string[],
+    projects: string[],
 }
 
 interface ICompanyModel extends ICompany { }

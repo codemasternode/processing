@@ -6,63 +6,16 @@ function validateEmail(email: string): boolean {
     return emailRegex.test(email)
 }
 
-
-const projectSubSchema: Schema = new Schema({
-    name: {
-        type: String,
-        required: true
-    },
-    logo: {
-        type: String,
-        required: true
-    },
-    ref: {
-        type: Types.ObjectId,
-        ref: "project",
-        required: true
-    }
-},
-    {
-        _id: false,
-        strict: true
-    }
-)
-
-const userSubSchema = new Schema({
-    email: {
-        type: String,
-        required: true
-    },
-    name: {
-        type: String,
-        required: true
-    },
-    lastname: {
-        type: String,
-        required: true
-    },
-    image: {
-        type: String
-    },
-    ref: {
-        type: Types.ObjectId,
-        ref: 'user',
-        required: true
-    }
-},
-    {
-        _id: false,
-        strict: true
-    }
-)
-
-
 const companySchema: Schema = new Schema({
     companyName: {
         type: String,
         required: [true, "Company Name is required"],
         minlength: 3,
         maxlength: 50
+    },
+    description: {
+        type: String,
+        maxlength: 10000
     },
     companyAdminEmail: {
         type: String,
@@ -94,8 +47,18 @@ const companySchema: Schema = new Schema({
     logo: {
         type: String
     },
-    users: [userSubSchema],
-    projects: [projectSubSchema],
+    users: [
+        {
+            type: Types.ObjectId,
+            ref: "user"
+        }
+    ],
+    projects: [
+        {
+            type: Types.ObjectId,
+            ref: 'project'
+        }
+    ],
 }, {
     strict: true,
     timestamps: true
