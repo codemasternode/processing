@@ -1,7 +1,7 @@
-import { Document } from 'mongoose'
+import { Document, Types } from 'mongoose'
 import { EAuthorizationType } from './eauthorization-type'
 import { EMethodType } from '.'
-import { EMimeType, IKeyValue } from '../shared'
+import { EMimeType, IKeyValue, MultiPartFormDataTypes } from '../shared'
 
 interface IEndpoint extends Document {
     name: string;
@@ -11,10 +11,16 @@ interface IEndpoint extends Document {
     authorization?: EAuthorizationType;
     parameters: IKeyValue[];
     headers: IKeyValue[];
-    responses: string[];
+    responses: Types.ObjectId[];
     mimeType: EMimeType;
-    "application/json": object;
-    "multipart/form-data": object;
+    "application/json": unknown;
+    "multipart/form-data": {
+        [key: string]: {
+            type: MultiPartFormDataTypes,
+            description?: string;
+            exampleValue?: string;
+        }
+    };
     createdBy: string;
     created_at: Date;
     updated_at: Date;

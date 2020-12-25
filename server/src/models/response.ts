@@ -1,6 +1,6 @@
 import { Schema, model, Types } from 'mongoose'
 import { enumConvert } from '../services'
-import { IResponseModel } from '../types'
+import { EMimeType, IResponseModel } from '../types'
 
 const responseSchema: Schema = new Schema({
     status: {
@@ -17,9 +17,10 @@ const responseSchema: Schema = new Schema({
     },
     mimeType: {
         type: String,
-        enum: [
-            "Application/json"
-        ]
+        enum: enumConvert(EMimeType)
+    },
+    "application/json": {
+        type: Object
     }
 }, {
     strict: true,

@@ -1,0 +1,1 @@
+export type MultiPartFormDataTypes = 'string' | 'number' | 'boolean' | 'file'

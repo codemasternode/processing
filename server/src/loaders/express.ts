@@ -6,9 +6,22 @@ import { CommonError } from '../types'
 import { errorHandler } from '../api/shared'
 
 
-export default async (app: express.Application): Promise<express.Application> => {
 
-    app.use(cors())
+export default (app: express.Application): express.Application => {
+
+    const whitelist = ['http://localhost:3000'];
+    const corsOptions = {
+        credentials: true, // This is important.
+        origin: (origin: string, callback: Function) => {
+            if (whitelist.includes(origin))
+                return callback(null, true)
+
+            callback(new Error('Not allowed by CORS'));
+        },
+        allowedHeaders: ["Content-Type", "Authorization"]
+    }
+
+    app.use(cors(corsOptions as cors.CorsOptions))
     app.use(cookieParser())
     app.use(express.urlencoded({ extended: true }))
     app.use(express.json())

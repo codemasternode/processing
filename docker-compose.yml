@@ -10,7 +10,7 @@ services:
       args:
         - NODE_PORT=${NODE_PORT}
     ports:
-      - 9000:${NODE_PORT}
+      - 9001:${NODE_PORT}
     volumes:
       - ./server:/usr/src/app
       - /usr/src/app/node_modules
