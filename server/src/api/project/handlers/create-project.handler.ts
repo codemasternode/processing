@@ -1,4 +1,4 @@
-import { ACWebSocketHandler, IWebSocketMessage, IProject, InternalError, MongoDBValidationError } from '../../../types'
+import { ACWebSocketHandler, IWebSocketMessage, IProject, WebSocketError } from '../../../types'
 import { ProjectModel } from '../../../models'
 import { Error } from 'mongoose'
 
@@ -26,13 +26,9 @@ export class CreateProjectHandler extends ACWebSocketHandler<IProject> {
                         [field]: err.errors[field].message
                     }
                 })
-                throw new MongoDBValidationError(errors)
-            } else if (err.name === 'MongoError' && err.code === 11000) {
-                throw new MongoDBValidationError({
-                    message: "Email has to be unique"
-                })
+                throw new WebSocketError(400, "create-project", errors)
             }
-            throw new InternalError({
+            throw new WebSocketError(500, "create-project", {
                 message: err.toString()
             })
         }

@@ -1,4 +1,5 @@
 import { ACWebSocketHandler, IWebSocketMessage } from '../../../types'
+import { ComapnyModel } from '../../../models'
 
 export class ReadProjectHandler extends ACWebSocketHandler<undefined> {
 
@@ -8,8 +9,16 @@ export class ReadProjectHandler extends ACWebSocketHandler<undefined> {
         super()
     }
 
-    handle(message: IWebSocketMessage<undefined>): void {
+    async handle(message: IWebSocketMessage<undefined>): Promise<void> {
         console.log("Read Project Handler")
+
+        const company = await ComapnyModel.find({
+            companyName: message.payload
+        })
+        message.socket.emit("read-project", {
+            code: 200,
+            payload: company
+        })
     }
 
 }

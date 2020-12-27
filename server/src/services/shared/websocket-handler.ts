@@ -1,4 +1,4 @@
-import { ACWebSocketHandler, IWebSocketMessage, MissingWebSocketHandler } from "../../types";
+import { ACWebSocketHandler, IWebSocketMessage, MissingWebSocketHandler, WebSocketError } from "../../types";
 
 export class WebSocketHandler {
     handlers: { [key: string]: ACWebSocketHandler<unknown>; };
@@ -11,7 +11,16 @@ export class WebSocketHandler {
         if (!message.type || !this.handlers[message.type]) {
             throw new MissingWebSocketHandler(message)
         }
-        this.handlers[message.type].handle(message)
+        try {
+            this.handlers[message.type].handle(message)
+        } catch (err) {
+            if (err instanceof WebSocketError) {
+                message.socket.emit(err.message, {
+                    code: err.code,
+                    payload: err.payload
+                })
+            }
+        }
     }
 
 }
