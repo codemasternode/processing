@@ -1,11 +1,14 @@
-import { Server } from 'socket.io'
+import { Server, Socket } from 'socket.io'
+import { projectWebSocketHandlers } from '../api/project'
+
 
 export default (io: Server) => {
-    console.log(io)
-    io.on("connection", () => {
-        console.log("Working")
-    })
-    io.on("/xd", (socket) => {
-        socket.emit("XD")
+    io.on("connection", (socket: Socket) => {
+        socket.on("project", message => {
+            projectWebSocketHandlers.handle({
+                ...message,
+                socket: socket
+            })
+        })
     })
 }

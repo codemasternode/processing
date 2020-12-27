@@ -21,14 +21,8 @@ export default async (): Promise<http.Server> => {
         },
         cookie: false
     })
-    io.on("connection", (socket: Socket) => {
-        console.log("connected")
-        socket.on("message", () => {
-            console.log("test")
-        })
-    });
 
-    //webSockets(io)
+    webSockets(io)
 
     return httpServer
 }

@@ -9,7 +9,14 @@ function App() {
 
   useEffect(() => {
     const socket = io("http://0.0.0.0:9001")
-    socket.emit("message")
+    setTimeout(() => {
+      socket.emit("project", {
+        type: 'create-project',
+        payload: {
+          name: "Nowy projekt"
+        }
+      })
+    }, 10000)
   }, [])
 
   return (
