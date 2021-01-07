@@ -3,11 +3,11 @@ import { makeStyles } from '@material-ui/core/styles';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
-import IconButton from '@material-ui/core/IconButton';
-import MenuIcon from '@material-ui/icons/Menu';
-import { ITopBarProps } from '../../types'
+import clsx from 'clsx';
 
-const useStyles = makeStyles(() => ({
+const drawerWidth = 280;
+
+const useStyles = makeStyles((theme) => ({
     root: {
         flexGrow: 1,
     },
@@ -26,20 +26,31 @@ const useStyles = makeStyles(() => ({
         background: "white",
         color: "black",
         boxShadow: "none",
-        borderBottom: "1px solid lightgray"
+        borderBottom: "1px solid lightgray",
+        transition: theme.transitions.create(['margin', 'width'], {
+            easing: theme.transitions.easing.sharp,
+            duration: theme.transitions.duration.leavingScreen,
+        }),
+    },
+    appBarShift: {
+        width: `calc(100% - ${drawerWidth}px)`,
+        marginLeft: drawerWidth,
+        transition: theme.transitions.create(['margin', 'width'], {
+            easing: theme.transitions.easing.easeOut,
+            duration: theme.transitions.duration.enteringScreen,
+        }),
     }
 }));
 
 
-const TopBar = ({ isSideBarOpen, setSideBarOpen }: ITopBarProps) => {
+const TopBar = () => {
     const classes = useStyles();
     return (
         <div className={classes.root}>
-            <AppBar position="static" className={classes.appBar}>
+            <AppBar position="fixed" className={clsx(classes.appBar, {
+                [classes.appBarShift]: true,
+            })}>
                 <Toolbar>
-                    <IconButton onClick={() => setSideBarOpen(!isSideBarOpen)} edge="start" color="inherit" aria-label="menu">
-                        <MenuIcon className={classes.menuIcon} />
-                    </IconButton>
                     <Typography variant="h1" className={classes.title}>
                         IT Software Company
                     </Typography>

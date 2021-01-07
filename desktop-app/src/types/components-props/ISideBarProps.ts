@@ -1,4 +1,9 @@
 export interface ISideBarProps {
-    isSideBarOpen: boolean;
-    setSideBarOpen: (isOpen: boolean) => void;
+    match: {
+        url: string;
+    },
+    name: string;
+    lastname: string;
+    projects: Project[],
+    image?: string;
 }
