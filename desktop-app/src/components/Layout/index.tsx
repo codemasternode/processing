@@ -7,28 +7,10 @@ const projects = [
         name: "Calclogistisc App - application for calculating transport costs"
     },
     {
-        name: "Calclogistisc App - application for calculating transport costs"
+        name: "Courier App"
     },
     {
-        name: "Calclogistisc App - application for calculating transport costs"
-    },
-    {
-        name: "Calclogistisc App - application for calculating transport costs"
-    },
-    {
-        name: "Calclogistisc App - application for calculating transport costs"
-    },
-    {
-        name: "Calclogistisc App - application for calculating transport costs"
-    },
-    {
-        name: "Calclogistisc App - application for calculating transport costs"
-    },
-    {
-        name: "Calclogistisc App - application for calculating transport costs"
-    },
-    {
-        name: "Calclogistisc App - application for calculating transport costs"
+        name: "TG Core - panel management"
     }
 ]
 

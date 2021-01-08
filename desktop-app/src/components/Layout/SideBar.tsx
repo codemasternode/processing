@@ -85,7 +85,10 @@ const useStyles = makeStyles((theme) => ({
     },
     listItemText: {
         fontWeight: 700,
-        fontSize: "1.4rem"
+        fontSize: "1.4rem",
+        textOverflow: "ellipsis",
+        whiteSpace: "nowrap",
+        overflow: "hidden"
     },
     signedListItem: {
         background: "rgba(98, 0, 238, 0.1)"
@@ -95,6 +98,10 @@ const useStyles = makeStyles((theme) => ({
     },
     fullList: {
         width: 'auto',
+    },
+    listItemIcon: {
+        minWidth: 0,
+        marginRight: 20
     },
     subHeader: {
         lineHeight: "16px",
@@ -190,15 +197,15 @@ function SideBar({ match: { url }, image, name, lastname, projects }: ISideBarPr
 
                 <List>
                     {
-                        projects.map((project, index) => (
+                        projects.map(({ name }, index) => (
                             <ListItem>
-                                <ListItemIcon>
+                                <ListItemIcon className={classes.listItemIcon}>
                                     <svg width="19" height="14" viewBox="0 0 19 14" fill="none" xmlns="http://www.w3.org/2000/svg">
                                         <path d="M14.63 0.84C14.27 0.33 13.67 0 13 0L2 0.0100002C0.9 0.0100002 0 0.9 0 2V12C0 13.1 0.9 13.99 2 13.99L13 14C13.67 14 14.27 13.67 14.63 13.16L19 7L14.63 0.84Z"
                                             fill={colors[index % colors.length]} />
                                     </svg>
-
                                 </ListItemIcon>
+                                <p className={classes.listItemText}>{name}</p>
                             </ListItem>
                         ))
                     }
