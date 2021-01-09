@@ -11,7 +11,9 @@ const companySchema: Schema = new Schema({
         type: String,
         required: [true, "Company Name is required"],
         minlength: 3,
-        maxlength: 50
+        maxlength: 50,
+        unique: true,
+        index: true
     },
     description: {
         type: String,
