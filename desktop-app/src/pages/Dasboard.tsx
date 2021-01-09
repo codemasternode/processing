@@ -1,6 +1,7 @@
-import React from 'react'
+import React, { useState, useEffect } from 'react'
 import Button from '@material-ui/core/Button';
 import Grid from '@material-ui/core/Grid'
+import { IDashboard } from '../types'
 import { makeStyles } from '@material-ui/core';
 
 const styles = makeStyles({
@@ -107,15 +108,20 @@ const projects = [
     }
 ]
 
-const Dashboard = () => {
+const Dashboard = ({ socket }: IDashboard) => {
     const classes = styles()
+    const [projects, setProjects] = useState([])
+
+    useEffect(() => {
+        if (!socket) return;
+    }, [socket])
+
     return (
         <div className={classes.root}>
             <Grid container>
                 <Grid item xs={3}>
                     <Button variant="contained" className={classes.createProjectButton}>+ Create New Project</Button>
                 </Grid>
-
             </Grid>
             <Grid container>
                 <p className={classes.subHeader}>Projects</p>
@@ -124,7 +130,7 @@ const Dashboard = () => {
                 <Grid container>
                     <Grid item xs={12}>
                         {
-                            projects.map((project, index) => (
+                            projects.map((project) => (
                                 <Grid container className={classes.project}>
                                     <Grid item xs={8}>
                                         <h1 className={classes.companyNameText}>{project.name}</h1>
@@ -133,11 +139,9 @@ const Dashboard = () => {
                                 </Grid>
                             ))
                         }
-
                     </Grid>
                 </Grid>
             </div>
-
         </div>
     )
 }
