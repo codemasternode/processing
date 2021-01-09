@@ -31,7 +31,9 @@ const styles = makeStyles({
     subHeader: {
         lineHeight: "16px",
         letterSpacing: "1.5px",
-        paddingLeft: 16
+        paddingLeft: 16,
+        color: "rgba(0,0,0,0.6)",
+        marginTop: 100
     },
     companyNameText: {
         fontSize: "16px",
